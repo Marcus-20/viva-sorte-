@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar Fichas - Viva Sorte</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>Viva Sorte</h1>
+    </header>
+
+    <main class="container">
+        <div class="form-container">
+            <h2>Formulário de Compra</h2>
+            <p>Preencha seus dados para participar. Boa sorte!</p>
+
+            <form action="processar_compra.php" method="POST">
+                <!-- Campo oculto para enviar dados da rifa -->
+                <input type="hidden" id="rifa_nome" name="rifa_nome">
+                <input type="hidden" id="rifa_valor_unitario" name="rifa_valor_unitario">
+                <input type="hidden" id="numeros_comprados" name="numeros_comprados">
+
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contato">Número de Contato (WhatsApp)</label>
+                    <input type="tel" id="contato" name="contato" placeholder="(00) 90000-0000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com" required>
+                </div>
+
+                <hr>
+
+                <div class="resumo-compra">
+                    <h3>Resumo do Pedido</h3>
+                    <p>Você está comprando fichas para a rifa: <strong id="resumo_rifa_nome"></strong></p>
+                    <div class="form-group">
+                        <label for="quantidade">Quantidade de Fichas</label>
+                        <input type="number" id="quantidade" name="quantidade" value="1" min="1" readonly required>
+                    </div>
+                    <div class="total-compra">
+                        <span>Total a Pagar:</span>
+                        <strong id="valor_total">R$ 0,00</strong>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-comprar">Finalizar Compra</button>
+            </form>
+            <a href="javascript:history.back()" class="link-voltar">← Voltar e escolher outros números</a>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 Viva Sorte. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const rifaNome = params.get('rifa') || 'Não especificada';
+            const rifaValor = parseFloat(params.get('valor')) || 0;
+            const quantidade = parseInt(params.get('quantidade')) || 1;
+            const numeros = params.get('numeros') || '';
+
+            // Preenche os campos do formulário
+            document.getElementById('rifa_nome').value = rifaNome;
+            document.getElementById('rifa_valor_unitario').value = rifaValor;
+            document.getElementById('numeros_comprados').value = numeros;
+            document.getElementById('resumo_rifa_nome').textContent = rifaNome;
+
+            const quantidadeInput = document.getElementById('quantidade');
+            const valorTotalDisplay = document.getElementById('valor_total');
+
+            // Define a quantidade vinda da página anterior
+            quantidadeInput.value = quantidade;
+
+            function calcularTotal() {
+                const qtd = parseInt(quantidadeInput.value) || 0;
+                const total = qtd * rifaValor;
+                valorTotalDisplay.textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            }
+
+            calcularTotal();
+        });
+    </script>
+
+</body>
+</html>

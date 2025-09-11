@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha seus Números - Viva Sorte</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>Viva Sorte</h1>
+    </header>
+
+    <main class="container">
+        <div class="form-container">
+            <h2>Escolha seus números da sorte!</h2>
+            <p>Sorteio: <strong id="rifa_nome_display"></strong></p>
+            <p>Valor por número: <strong id="rifa_valor_display"></strong></p>
+            
+            <hr>
+
+            <h3>Números Disponíveis (200 no total)</h3>
+            <p>Selecione os números que deseja comprar. Os números em vermelho já foram vendidos.</p>
+            
+            <div class="progresso-vendas">
+                <div class="progresso-info">
+                    <span id="progresso_texto">0/200 vendidos</span>
+                </div>
+                <div class="progresso-barra"><div id="progresso_preenchimento" class="progresso-preenchimento"></div></div>
+            </div>
+
+            <div id="numeros-grid" class="numeros-grid">
+                <!-- Os números serão gerados por JavaScript -->
+            </div>
+
+            <hr>
+
+            <div class="resumo-compra">
+                <h3>Resumo do Pedido</h3>
+                <p>Números Selecionados: <strong id="numeros_selecionados">Nenhum</strong></p>
+                <div class="total-compra">
+                    <span>Total a Pagar:</span>
+                    <strong id="valor_total">R$ 0,00</strong>
+                </div>
+            </div>
+
+            <!-- O formulário de dados do cliente foi movido para a próxima etapa -->
+            <!-- Este botão agora levará para a página de formulário original -->
+            <button id="btn-prosseguir" class="btn-comprar" disabled>Prosseguir para Pagamento</button>
+            <a href="index.html" class="link-voltar">← Voltar para as rifas</a>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 Viva Sorte. Todos os direitos reservados.</p>
+    </footer>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const rifaNome = params.get('rifa') || 'Não especificada';
+            const rifaValor = parseFloat(params.get('valor')) || 0;
+
+            document.getElementById('rifa_nome_display').textContent = rifaNome.replace(/-/g, ' ');
+            document.getElementById('rifa_valor_display').textContent = rifaValor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            const numerosGrid = document.getElementById('numeros-grid');
+            const valorTotalDisplay = document.getElementById('valor_total');
+            const numerosSelecionadosDisplay = document.getElementById('numeros_selecionados');
+            const btnProsseguir = document.getElementById('btn-prosseguir');
+            const progressoTexto = document.getElementById('progresso_texto');
+            const progressoPreenchimento = document.getElementById('progresso_preenchimento');
+
+            let numerosSelecionados = [];
+            const numerosComprados = new Set();
+
+            // 1. Gera 200 números de 4 dígitos, únicos e aleatórios
+            const numerosDisponiveis = new Set();
+            while (numerosDisponiveis.size < 200) {
+                const numeroAleatorio = Math.floor(1000 + Math.random() * 9000).toString();
+                numerosDisponiveis.add(numeroAleatorio);
+            }
+
+            // Converte para array e ordena para exibição
+            const numerosOrdenados = Array.from(numerosDisponiveis).sort();
+
+            // 2. Simulação: Marca 30 números como já comprados aleatoriamente
+            //    (Garante que os números "comprados" existam na lista de disponíveis)
+            const indices = Array.from(Array(200).keys()); // [0, 1, 2, ..., 199]
+            for(let i = 0; i < 30; i++) {
+                const randomIndex = Math.floor(Math.random() * indices.length);
+                const indexParaComprar = indices.splice(randomIndex, 1)[0];
+                numerosComprados.add(numerosOrdenados[indexParaComprar]);
+            }
+
+            // 4. Atualiza a barra de progresso
+            const totalNumeros = numerosOrdenados.length;
+            const totalComprados = numerosComprados.size;
+            progressoTexto.textContent = `${totalComprados}/${totalNumeros} vendidos`;
+            progressoPreenchimento.style.width = `${(totalComprados / totalNumeros) * 100}%`;
+
+            // 3. Cria os elementos na tela
+            numerosOrdenados.forEach(numero => {
+                const numeroEl = document.createElement('div');
+                numeroEl.classList.add('numero-item');
+                numeroEl.textContent = numero;
+                numeroEl.dataset.numero = numero;
+
+                if (numerosComprados.has(numero)) {
+                    numeroEl.classList.add('comprado');
+                } else {
+                    numeroEl.addEventListener('click', () => {
+                        numeroEl.classList.toggle('selecionado');
+                        // Atualiza o array de selecionados
+                        numerosSelecionados = Array.from(numerosGrid.querySelectorAll('.numero-item.selecionado')).map(el => el.dataset.numero);
+                        atualizarResumo();
+                    });
+                }
+                numerosGrid.appendChild(numeroEl);
+            });
+
+            function atualizarResumo() {
+                const quantidade = numerosSelecionados.length;
+                const total = quantidade * rifaValor;
+                
+                valorTotalDisplay.textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                numerosSelecionadosDisplay.textContent = quantidade > 0 ? numerosSelecionados.join(', ') : 'Nenhum';
+
+                btnProsseguir.disabled = quantidade === 0;
+            }
+
+            btnProsseguir.addEventListener('click', () => {
+                // Redireciona para a página de formulário, passando os dados
+                const url = `compra.html?rifa=${rifaNome}&valor=${rifaValor}&quantidade=${numerosSelecionados.length}&numeros=${numerosSelecionados.join(',')}`;
+                window.location.href = url;
+            });
+
+            atualizarResumo();
+        });
+    </script> 
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+/* Reset e Configurações Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* Layout Principal com Sidebar */
+.main-layout {
+    display: flex;
+    gap: 2rem;
+}
+.content-area { flex: 3; }
+.sidebar { flex: 1; }
+
+/* Cabeçalho */
+.main-header {
+    background: linear-gradient(90deg, #28a745, #218838);
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.main-header h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.titulo-principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.clover-title {
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2));
+}
+
+.main-header p {
+    font-size: 1.2rem;
+}
+
+/* Títulos de Seção */
+h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: #218838;
+}
+
+/* Estrutura das seções de sorteio */
+.secao-sorteios {
+    margin-bottom: 3.5rem;
+}
+
+/* Grid de Rifas */
+.rifas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card-rifa {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;    display: flex;    flex-direction: column;
+}
+
+.card-rifa:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-destaque {
+    border: 2px solid #28a745;
+    transform: scale(1.02);
+}
+
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz o corpo do card crescer */
+    padding: 1.5rem;
+}
+
+.card-body h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #343a40;
+}
+
+.premio-acumulado {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Empurra o preço para baixo */
+}
+
+.preco-ficha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e9f5ec;
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+}
+
+.preco-ficha strong {
+    font-size: 1.5rem;
+    color: #218838;
+}
+
+.btn-comprar {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #28a745;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-comprar:hover {
+    background-color: #218838;
+}
+
+/* Página de Formulário */
+.form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #495057;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #e9ecef;
+    margin: 2rem 0;
+}
+
+.resumo-compra h3 {
+    margin-bottom: 1rem;
+}
+
+.total-compra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.total-compra strong {
+    font-size: 1.8rem;
+    color: #218838;
+}
+
+.link-voltar {
+    display: block;
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #218838;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-voltar:hover {
+    text-decoration: underline;
+}
+
+/* Rodapé */
+.main-footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+/* Seção Ganhadores Recentes */
+.ganhadores-recentes {
+    margin-top: 4rem;
+    background-color: #fff;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+.lista-ganhadores {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.ganhador-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-left: 5px solid #28a745;
+    border-radius: 5px;
+}
+
+.ganhador-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.ganhador-nome {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.ganhador-data {
+    color: #6c757d;
+}
+
+/* Estilos da Sidebar */
+.sidebar-widget {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    margin-bottom: 2rem;
+}
+
+.sidebar-title {
+    font-size: 1.3rem;
+    color: #218838;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9f5ec;
+}
+
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-list li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #495057;
+}
+
+.clover-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Grid de Números para Compra */
+.numeros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.numero-item {
+    padding: 0.8rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.numero-item.comprado {
+    background-color: #dc3545;
+    color: #fff;
+    border-color: #dc3545;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.numero-item.selecionado {
+    background-color: #28a745;
+    color: #fff;
+    border-color: #218838;
+}
+
+/* Barra de Progresso de Vendas */
+.progresso-vendas {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.progresso-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.progresso-barra {
+    width: 100%;
+    height: 12px;
+    background-color: #e9ecef;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progresso-preenchimento {
+    height: 100%;
+    background-color: #28a745;
+    border-radius: 6px;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Barra de Progresso dentro do Card */
+.progresso-vendas-card {
+    margin-bottom: 1.5rem;
+}
+
+.progresso-barra-card {
+    width: 100%;
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.4rem;
+}
+
+.progresso-preenchimento-card {
+    height: 100%;
+    background-color: #28a745;
+    border-radius: 4px;
+    transition: width 0.5s ease-in-out;
+}
+
+.progresso-texto-card {
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-align: right;
+    display: block;
+}
