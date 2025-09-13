@@ -20,7 +20,7 @@
             
             <hr>
 
-            <h3>Números Disponíveis (200 no total)</h3>
+            <h3>Números Disponíveis (700 no total)</h3>
             <p>Selecione os números que deseja comprar. Os números em vermelho já foram vendidos.</p>
             
             <div class="progresso-vendas">
@@ -75,9 +75,9 @@
             let numerosSelecionados = [];
             const numerosComprados = new Set();
 
-            // 1. Gera 200 números de 4 dígitos, únicos e aleatórios
+            // 1. Gera 700 números de 4 dígitos, únicos e aleatórios
             const numerosDisponiveis = new Set();
-            while (numerosDisponiveis.size < 200) {
+            while (numerosDisponiveis.size < 700) {
                 const numeroAleatorio = Math.floor(1000 + Math.random() * 9000).toString();
                 numerosDisponiveis.add(numeroAleatorio);
             }
@@ -85,14 +85,8 @@
             // Converte para array e ordena para exibição
             const numerosOrdenados = Array.from(numerosDisponiveis).sort();
 
-            // 2. Simulação: Marca 30 números como já comprados aleatoriamente
-            //    (Garante que os números "comprados" existam na lista de disponíveis)
-            const indices = Array.from(Array(200).keys()); // [0, 1, 2, ..., 199]
-            for(let i = 0; i < 30; i++) {
-                const randomIndex = Math.floor(Math.random() * indices.length);
-                const indexParaComprar = indices.splice(randomIndex, 1)[0];
-                numerosComprados.add(numerosOrdenados[indexParaComprar]);
-            }
+            // 2. Simulação de números comprados foi removida.
+            //    Todos os números agora estão disponíveis.
 
             // 4. Atualiza a barra de progresso
             const totalNumeros = numerosOrdenados.length;
